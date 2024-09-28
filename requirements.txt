@@ -1,0 +1,7 @@
+flask
+google.generativeai
+markdown2
+customtkinter
+json    
+shutil
+tkinter
