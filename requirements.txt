@@ -1,7 +1,6 @@
-flask
-google.generativeai
+Flask==2.3.2
+markdown2==2.4.2
+google-generativeai==0.1.0
+gunicorn==20.1.0
 markdown2
-customtkinter
-json    
-shutil
-tkinter
+logging
