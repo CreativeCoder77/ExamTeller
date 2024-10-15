@@ -1,11 +1,10 @@
 body {
     background-color: #121212;
     color: #e0e0e0;
-    margin: 0;
-    padding: 0;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    overflow-y: hidden;
+    margin: 0;
+    padding: 0;
     height: 100vh;
     overflow: hidden;
 }
@@ -19,8 +18,6 @@ body {
 .sidebar {
     width: 280px;
     background: #1e1e1e;
-    border: none;
-    zoom: 90%;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -81,15 +78,11 @@ body {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.danger-btn {
-    background-color: #d32f2f;
-}
-
 .history-btn svg {
     margin-right: 8px;
 }
 
-#delete-all-history:hover, #new-chat:hover {
+.history-btn:hover {
     background-color: #3a3a3a;
     transform: translateY(-2px);
 }
@@ -199,12 +192,11 @@ body {
     transition: color 0.3s ease;
 }
 
-.navbar-brand:hover{
-    cursor:default;
+.navbar-brand:hover {
+    cursor: default;
     color: whitesmoke;
 }
 
-#clear-chat,
 #rename-chat,
 #delete-chat,
 #change-username {
@@ -218,11 +210,9 @@ body {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-
-#clear-chat:hover,
 #rename-chat:hover,
 #delete-chat:hover,
-#change-username:hover{
+#change-username:hover {
     background-color: #3a3a3a;
     transform: translateY(-2px);
 }
@@ -346,8 +336,7 @@ strong {
     color: black;
     border: 2px solid white;
     cursor: pointer;
-  }
-
+}
 
 #loading-bar {
     position: fixed;
@@ -364,27 +353,6 @@ strong {
 @keyframes loading {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 240px;
-    }
-
-    .user-response,
-    .bot-response {
-        max-width: 90%;
-    }
-
-    #query {
-        font-size: 14px;
-    }
-
-    .btn-send svg {
-        width: 24px;
-        height: 24px;
-    }
 }
 
 /* Custom Questions Section */
@@ -433,31 +401,6 @@ strong {
     line-height: 1.5;
 }
 
-/* Responsive adjustments for custom questions */
-@media (max-width: 1024px) {
-    .custom-question-box {
-        width: 30%;
-    }
-}
-
-@media (max-width: 768px) {
-    .custom-questions-container {
-        padding: 20px;
-    }
-    
-    .custom-question-box {
-        width: 45%;
-        padding: 15px;
-    }
-}
-
-@media (max-width: 480px) {
-    .custom-question-box {
-        width: 100%;
-        margin: 10px 0;
-    }
-}
-
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
     width: 8px;
@@ -475,7 +418,6 @@ strong {
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
-
 
 .card {
     width: 500px;
@@ -498,17 +440,6 @@ strong {
     z-index: 1001;
 }
 
-.card svg {
-    width: 50px;
-    margin-bottom: 20px;
-    height: 50px;
-    margin-left: 20px;
-}
-
-.card svg g path {
-    fill: white;
-}
-
 .cookieHeading {
     font-size: 1.2em;
     font-weight: 800;
@@ -521,17 +452,18 @@ strong {
     font-weight: 800;
     color: #de662e;
 }
-#new-chat, #delete-all-history{
+
+#new-chat, #delete-all-history {
     width: 100%;
     border-radius: 10px;
     color: white;
     margin-top: 8px;
     font-size: medium;
-    background:none;
-
+    background: none;
 }
-#new-chat-name{
-    padding:5px;
+
+#new-chat-name {
+    padding: 5px;
     width: 100%;
     border-radius: 10px;
     border: 1px solid white;
@@ -541,7 +473,8 @@ strong {
     font-size: medium;
     background-color: #393937;
 }
-#new-chat-name:focus{
+
+#new-chat-name:focus {
     border: 1px solid white;
     outline: none;
 }
@@ -599,7 +532,6 @@ body.popup-active::after {
     display: block;
 }
 
-
 .typing-animation {
     animation: typing 1s steps(5, end) infinite;
 }
@@ -613,10 +545,9 @@ body.popup-active::after {
     100% { content: '.....'; }
 }
 
-
 .code-block {
     color: skyblue;
-    padding:30px;
+    padding: 30px;
     font-family: 'Courier New', Courier, monospace;
     border-radius: 10px;
     width: fit-content;
@@ -638,7 +569,49 @@ body.popup-active::after {
     color: #e0e0e0;
 }
 
-
-hr{
+hr {
     border: 1px solid rgba(144, 142, 142, 0.534);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .custom-question-box {
+        width: 30%;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 240px;
+    }
+
+    .user-response,
+    .bot-response {
+        max-width: 90%;
+    }
+
+    #query {
+        font-size: 14px;
+    }
+
+    .btn-send svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .custom-questions-container {
+        padding: 20px;
+    }
+    
+    .custom-question-box {
+        width: 45%;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .custom-question-box {
+        width: 100%;
+        margin: 10px 0;
+    }
 }

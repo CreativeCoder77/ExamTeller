@@ -48,9 +48,10 @@ $(document).ready(function () {
             updateUsername(newUsername);
             $('#username-popup').hide();
             $('body').removeClass('popup-active');
+            updateChatList(); // Add this line to update the chat list immediately
         }
     });
-
+    
     $('#username-form-cancel').click(function() {
         $('#username-popup').hide();
         $('body').removeClass('popup-active');
@@ -65,7 +66,7 @@ $(document).ready(function () {
         username = newUsername;
         localStorage.setItem('username', username);
         
-        // Update username in all chats
+        // Update username in all chats without deleting them
         Object.keys(chats).forEach(chatId => {
             chats[chatId].content = chats[chatId].content.replace(
                 new RegExp(`<strong>${oldUsername || 'You'}:</strong>`, 'g'),
@@ -89,14 +90,13 @@ $(document).ready(function () {
 
     function updateChatList() {
         $('#chat-list').empty();
-
         const sortedChatIds = Object.keys(chats).sort((a, b) => chats[b].lastUsed - chats[a].lastUsed);
         const groupedChats = groupChatsByDate(sortedChatIds);
-
+    
         Object.keys(groupedChats).forEach((dateString) => {
             const dateHeader = $('<div>').addClass('chat-date-header').text(dateString);
             $('#chat-list').append(dateHeader);
-
+    
             groupedChats[dateString].forEach((chatId) => {
                 const chatName = chats[chatId].name || `Chat ${chatId}`;
                 const chatItem = createChatItem(chatId, chatName);
@@ -104,7 +104,6 @@ $(document).ready(function () {
             });
         });
     }
-
     function groupChatsByDate(chatIds) {
         const groupedChats = {};
         const today = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
@@ -207,14 +206,7 @@ $(document).ready(function () {
         saveChatHistory();
     }
 
-    function clearChat(chatId) {
-        if (chatId) {
-            chats[chatId].content = '';
-            $('#responses').empty();
-            saveChatHistory();
-            toggleCustomQuestions();
-        }
-    }
+
 
     function renameChat(chatId, newName) {
         if (chatId && newName && newName.trim()) {
@@ -257,35 +249,36 @@ $(document).ready(function () {
         });
     }
 
-    function showClearChatPopup(chatId) {
-        showConfirmationPopup('Are you certain you wish to permanently clear the chat history?',"clear", () => {     
-            clearChat(chatId);
-        });
-    }
 
-    function showConfirmationPopup(message,heading, onConfirm) {
+    function showConfirmationPopup(message, heading, onConfirm) {
         $('#popup .cookieHeading').text(message);
-        const head = document.getElementById("delete-heading")
-        head.innerText = heading
+        const head = document.getElementById("delete-heading");
+        head.innerText = heading;
         $('#popup').show();
 
         $('.acceptButton').off('click').on('click', function () {
             onConfirm();
             $('#popup').hide();
+            window.location.reload();
         });
 
         $('.declineButton').off('click').on('click', function () {
             $('#popup').hide();
+            window.location.reload();
         });
     }
 
+
     function deleteAllHistory() {
-        showConfirmationPopup('Are you certain you want to delete all chat history?',"Delete", () => {
+        showConfirmationPopup('Are you certain you want to delete all chat history?', "Delete", () => {
             chats = {};
             saveChatHistory();
             newChat();
+            updateChatList(); // Add this line to update the chat list immediately
         });
     }
+    
+
 
     function scrollToBottom() {
         var responseContainer = $('#responses');
@@ -343,7 +336,6 @@ $(document).ready(function () {
 
     $('#new-chat').click(newChat);
     $('#delete-all-history').click(deleteAllHistory);
-    $('#clear-chat').click(() => showClearChatPopup(currentChatId));
 
     $('#query').on('input', function () {
         adjustTextareaHeight();
