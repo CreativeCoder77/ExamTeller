@@ -8,7 +8,7 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 
 # Load configuration from JSON file
-genai.configure(api_key="AIzaSyC0br2ojApvYftpmJ6vwtdjzlwPHzmIf40")
+genai.configure(api_key="YOUR_API_KEY")
 generation_config = {
     "temperature": 1,
     "top_p": 0.95,
